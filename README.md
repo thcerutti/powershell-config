@@ -1,10 +1,39 @@
 # 🚀 Configuração do PowerShell (Zsh-Style)
 
-Este guia contém os passos para transformar o terminal do Windows/PowerShell em uma experiência próxima ao Zsh do Linux, com autocompletar inteligente, ícones e sugestões de comandos.
+Este repositório contém os arquivos de configuração para transformar o terminal do Windows/PowerShell em uma experiência próxima ao Zsh do Linux, com autocompletar inteligente, ícones, sugestões de comandos e um prompt moderno via **Starship**.
 
-## 1. Instalação dos Módulos Necessários
+## Arquivos do Repositório
 
-Abra o PowerShell e execute os comandos abaixo para instalar as extensões de autocompletar, ícones e integração:
+| Arquivo | Descrição |
+| --- | --- |
+| `Microsoft.PowerShell_profile.ps1` | Perfil do PowerShell — carregado automaticamente a cada sessão. |
+| `starship.toml` | Configuração do prompt Starship com ícones Nerd Font. |
+
+---
+
+## 1. Pré-requisitos
+
+### Instalar o Starship
+
+```powershell
+winget install Starship.Starship
+```
+
+### Instalar o Neovim (editor padrão configurado no perfil)
+
+```powershell
+winget install Neovim.Neovim
+```
+
+### Instalar o Chocolatey (opcional, para autocompletar `choco`)
+
+Siga as instruções em: https://chocolatey.org/install
+
+---
+
+## 2. Instalação dos Módulos PowerShell
+
+Abra o PowerShell e execute:
 
 ```powershell
 # Suporte avançado para Git (Branch, Status, Autocomplete)
@@ -18,55 +47,42 @@ Install-Module -Name DockerCompletion -Scope CurrentUser -Force
 
 # Ícones coloridos para arquivos e pastas no terminal
 Install-Module -Name Terminal-Icons -Scope CurrentUser -Force
-
 ```
 
 ---
 
-## 2. Configurando o Perfil (`$PROFILE`)
+## 3. Aplicando o Perfil (`$PROFILE`)
 
-O arquivo de perfil é o "script" que o PowerShell executa toda vez que é aberto.
-
-1. No terminal, digite: `notepad $PROFILE`
-2. Cole o conteúdo abaixo e salve o arquivo:
+O arquivo `Microsoft.PowerShell_profile.ps1` deste repositório deve ser copiado (ou referenciado) para o caminho do seu perfil PowerShell.
 
 ```powershell
-# --- 1. Opções de Previsão e Visualização ---
-# Habilita o histórico e os plugins para sugerir comandos (texto cinza)
-Set-PSReadLineOption -PredictionSource HistoryAndPlugin
-Set-PSReadLineOption -PredictionViewStyle InlineView
+# Verifique o caminho do seu perfil
+echo $PROFILE
 
-# --- 2. Teclas de Atalho (Produtividade) ---
-# TAB: Aceita a sugestão cinza ou abre o menu visual de opções (estilo Zsh)
-Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
-
-# CTRL + SETA DIREITA: Aceita a sugestão palavra por palavra
-Set-PSReadLineKeyHandler -Key "Ctrl+RightArrow" -Function AcceptNextSuggestionWord
-
-# SETA PARA CIMA/BAIXO: Filtra o histórico pelo que você já começou a digitar
-Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
-Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
-
-# --- 3. Importação de Módulos ---
-Import-Module posh-git
-Import-Module CompletionPredictor
-Import-Module DockerCompletion
-Import-Module Terminal-Icons
-
-# --- 4. Autocomplete para Kubernetes (kubectl) ---
-if (Get-Command kubectl -ErrorAction SilentlyContinue) {
-    kubectl completion powershell | Out-String | Invoke-Expression
-}
-
-# --- 5. Inicialização do Tema (Oh My Posh) ---
-# Certifique-se de que o Oh My Posh está instalado no sistema
-oh-my-posh init pwsh | Invoke-Expression
-
+# Copie o arquivo para o caminho correto
+Copy-Item .\Microsoft.PowerShell_profile.ps1 $PROFILE
 ```
 
 ---
 
-## 3. Resumo de Funcionalidades e Atalhos
+## 4. Configurando o Starship
+
+Copie o arquivo `starship.toml` para o diretório de configuração do Starship:
+
+```powershell
+Copy-Item .\starship.toml "$env:USERPROFILE\.config\starship.toml"
+```
+
+O `starship.toml` deste repositório inclui configurações para:
+
+* Símbolos customizados para Git (branch, status, commits)
+* Ícones Nerd Font para linguagens: .NET, Node.js, Python, Go, Rust, Lua, C/C++
+* Suporte a Kubernetes, Docker, Terraform, AWS, Azure e GCloud
+* Símbolos de sistema operacional e informações de bateria/memória
+
+---
+
+## 5. Resumo de Funcionalidades
 
 ### Atalhos de Teclado
 
@@ -76,16 +92,22 @@ oh-my-posh init pwsh | Invoke-Expression
 | `Ctrl` + `→` | Aceita apenas a próxima palavra da sugestão. |
 | `↑` / `↓` | Busca no histórico comandos que iniciam com o texto já digitado. |
 
-### Visual e Ícones
+### Visual e Ferramentas
 
-* **Terminal-Icons:** Agora, ao digitar `ls` ou `dir`, você verá ícones específicos para cada tipo de arquivo (ex: ícone de engrenagem para `.json`, ícone de pasta, ícone do Docker para `Dockerfile`, etc.).
-* **Oh My Posh:** Gerencia a barra de status (prompt) com informações de contexto.
+* **Starship:** Prompt moderno com informações de contexto (Git, linguagem, Kubernetes, cloud, etc.).
+* **Terminal-Icons:** Ao digitar `ls` ou `dir`, exibe ícones específicos por tipo de arquivo.
+* **posh-git:** Informações de branch e status Git no prompt.
+* **CompletionPredictor:** Sugestões inteligentes de comandos baseadas no histórico e módulos instalados.
+* **DockerCompletion:** Autocompletar para comandos Docker.
+* **Chocolatey:** Autocompletar para o gerenciador de pacotes `choco` (se instalado).
+* **kubectl:** Autocompletar para Kubernetes (se `kubectl` estiver instalado).
+* **Neovim:** Definido como editor padrão (`$env:EDITOR = "nvim"`).
 
 ---
 
-## 4. Requisitos de Interface
+## 6. Requisitos de Interface
 
-Para que todos os ícones (do Oh My Posh, Git e Terminal-Icons) apareçam corretamente, é obrigatório utilizar uma **Nerd Font** nas configurações do seu Windows Terminal.
+Para que todos os ícones (do Starship, Git e Terminal-Icons) apareçam corretamente, é obrigatório utilizar uma **Nerd Font** nas configurações do seu Windows Terminal.
 
 **Recomendações:**
 

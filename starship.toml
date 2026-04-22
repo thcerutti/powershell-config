@@ -1,0 +1,122 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+continuation_prompt = "[](bright-black) "
+
+[character]
+success_symbol = "[➜](bold green) "
+error_symbol = "[✘](bold red) "
+vimcmd_symbol = "[❮](bold green) "
+vimcmd_visual_symbol = "[❮](bold yellow) "
+vimcmd_replace_symbol = "[❮](bold purple) "
+vimcmd_replace_one_symbol = "[❮](bold purple) "
+
+[git_branch]
+symbol = " "
+style = "bold purple"
+
+[git_status]
+ahead = "⇡"
+behind = "⇣"
+diverged = "󰼶 "
+up_to_date = "✓"
+renamed = "󰑕 "
+deleted = "󰗨 "
+modified = "󰏫 "
+staged = "󰐖 "
+untracked = "󰸶 "
+
+[git_commit]
+tag_symbol = "  "
+
+[dotnet]
+# Mantendo o formato que você gostou com ícone da Nerd Font
+format = "via [$symbol($version )(󰓾 $tfm )]($style)"
+symbol = "󰪮 "
+style = "bold blue"
+
+[directory]
+read_only = " 󰌾"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[kubernetes]
+symbol = "󱃾 "
+disabled = false
+style = "bold blue"
+
+[docker_context]
+symbol = " "
+style = "bold blue"
+
+[terraform]
+symbol = "󱁢 "
+
+[aws]
+symbol = " "
+
+[azure]
+symbol = "󰠅 "
+
+[gcloud]
+symbol = " "
+
+[nodejs]
+symbol = "󰎙 "
+
+[python]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[c]
+symbol = " "
+
+[cpp]
+symbol = " "
+
+[package]
+symbol = "󰏗 "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[battery]
+full_symbol = "󰁹 "
+charging_symbol = "󰂄 "
+discharging_symbol = "󰂃 "
+unknown_symbol = "󰂑 "
+empty_symbol = "󰂎 "
+
+# --- Configurações de SO com ícones ---
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+Amazon = " "
+Android = " "
+Arch = " "
+CentOS = " "
+Debian = " "
+Fedora = " "
+FreeBSD = " "
+Linux = " "
+Macos = " "
+Manjaro = " "
+Mint = " "
+NixOS = " "
+OpenBSD = " "
+openSUSE = " "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+SUSE = " "
+Ubuntu = " "
+Windows = "󰍲 "

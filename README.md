@@ -25,6 +25,18 @@ winget install Starship.Starship
 winget install Neovim.Neovim
 ```
 
+### Instalar o fnm (gerenciador de versões do Node.js)
+
+O perfil ativa o [fnm](https://github.com/Schniz/fnm) com `--use-on-cd`. Assim, a versão do Node troca sozinha quando você entra com `cd` numa pasta que tem um arquivo `.nvmrc` ou `.node-version`.
+
+```powershell
+winget install Schniz.fnm
+
+# Instale uma versão do Node e defina-a como padrão
+fnm install --lts
+fnm default lts-latest
+```
+
 ### Instalar o Chocolatey (opcional, para autocompletar `choco`)
 
 Siga as instruções em: https://chocolatey.org/install
@@ -102,6 +114,7 @@ O `starship.toml` deste repositório inclui configurações para:
 * **Chocolatey:** Autocompletar para o gerenciador de pacotes `choco` (se instalado).
 * **kubectl:** Autocompletar para Kubernetes (se `kubectl` estiver instalado).
 * **Neovim:** Definido como editor padrão (`$env:EDITOR = "nvim"`).
+* **fnm:** Gerencia as versões do Node.js e troca automaticamente para a versão do projeto ao entrar na pasta (`.nvmrc` / `.node-version`).
 
 ---
 

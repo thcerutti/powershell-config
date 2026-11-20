@@ -44,3 +44,6 @@ $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
+
+# Node version manager (fnm) - troca a versao do Node ao entrar em pastas com .nvmrc/.node-version
+fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression

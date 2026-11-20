@@ -122,8 +122,44 @@ O `starship.toml` deste repositório inclui configurações para:
 
 Para que todos os ícones (do Starship, Git e Terminal-Icons) apareçam corretamente, é obrigatório utilizar uma **Nerd Font** nas configurações do seu Windows Terminal.
 
-**Recomendações:**
+**Fonte recomendada: CaskaydiaCove Nerd Font**
 
-* *MesloLGL Nerd Font*
-* *Cascadia Code NF*
+É a Cascadia Code (fonte padrão do Windows Terminal) com os ícones acrescentados, então o visual das letras quase não muda.
+
+**Outras opções:**
+
 * *JetBrainsMono Nerd Font*
+* *MesloLGS Nerd Font*
+* *FiraCode Nerd Font*
+
+### Instalando a CaskaydiaCove Nerd Font
+
+**Opção 1: Chocolatey** (terminal como administrador). Esse pacote costuma estar desatualizado, então confira a versão com `choco info cascadia-code-nerd-font`.
+
+```powershell
+choco install cascadia-code-nerd-font -y
+```
+
+**Opção 2: manualmente, sem administrador.** Baixe o `CascadiaCode.zip` na [última release do Nerd Fonts](https://github.com/ryanoasis/nerd-fonts/releases/latest), extraia, selecione os arquivos `CaskaydiaCoveNerdFont-*.ttf`, clique com o botão direito e escolha **Instalar** (ou **Instalar para todos os usuários**, se tiver permissão de administrador).
+
+**Alternativa para JetBrainsMono:**
+
+```powershell
+winget install --id DEVCOM.JetBrainsMonoNerdFont
+```
+
+### Ativando a fonte no Windows Terminal
+
+Abra **Configurações** (`Ctrl` + `,`), vá em **Perfis → PowerShell → Aparência** e escolha `CaskaydiaCove Nerd Font` em **Tipo de fonte**. Ou edite o `settings.json` (**Abrir arquivo JSON**) e adicione `face` no bloco `font` do perfil:
+
+```json
+"font":
+{
+    "face": "CaskaydiaCove Nerd Font",
+    "size": 10
+}
+```
+
+Para aplicar a fonte a todos os perfis (PowerShell, Prompt de Comando, WSL), coloque o mesmo bloco `font` em `profiles.defaults`.
+
+> No seletor de fontes do Windows, a família pode aparecer como `CaskaydiaCove NF`. É a mesma fonte: `CaskaydiaCove Nerd Font` é o nome completo e funciona no `settings.json`.
